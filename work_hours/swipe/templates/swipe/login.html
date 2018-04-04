@@ -1,0 +1,13 @@
+{% extends 'r_base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <div class = "col-lg-6 col-md-6 col-sm-8">
+    <form method = "post" action = ''> {% csrf_token %}
+      {{form|crispy}}
+      <button class = "btn btn-primary">SignIn</button>
+    </form>
+    <p>{{alert}}</p>
+  </div>
+{% endblock %}

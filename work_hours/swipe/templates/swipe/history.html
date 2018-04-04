@@ -1,0 +1,14 @@
+{% extends 'r_base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<table class = "table table-bordered">
+  <thead><tr><th scope = "col">Check In's</th><th scope = "col">Check Out's</th></tr></thead>
+  <tbody>
+    {% for x, y in ch %}
+      <tr><td>{{x}} </td> <td>{{y}}</td></tr>
+    {% endfor %}
+ </tbody>
+</table>
+{% endblock %}
