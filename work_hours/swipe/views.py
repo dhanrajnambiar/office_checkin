@@ -69,6 +69,9 @@ def user_home(request, name):
         employee_obj = Employee.objects.get(user = User.objects.get(username = name))
         u_name = employee_obj.user.username
         mail = employee_obj.user.email
+        start_time = (datetime.datetime.now() - datetime.timedelta(days = 1)).replace(hour = 0, minute = 0, second = 0, microsecond = 0)
+        L_checkout = checkout.objects.filter(creator = employee_obj, time__gte = start_time).order_by("-time")[0]
+        L_checkin = checkin.objects.filter(creator = employee_obj, time__gte = start_time).order_by("time")[0]
 
         if request.method == 'POST':
             if request.POST['Check_Select'] == 'in':
@@ -76,12 +79,7 @@ def user_home(request, name):
             else:
                 checkout.objects.create(creator = employee_obj)
 
-        context = {
-            'form':c_form,
-            'u_name':u_name,
-            'email':mail,
-            'note':welcome_note,
-        }
+        context = {'form':c_form,'u_name':u_name,'email':mail,'note':welcome_note,'l_in':L_checkin,'l_out':L_checkout}
         return render(request, 'swipe/user_home.html', context)
     else:
         return redirect(user_login)

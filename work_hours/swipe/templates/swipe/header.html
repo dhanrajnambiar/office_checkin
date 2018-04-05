@@ -15,6 +15,9 @@
       </li>
       {% elif '/history/' in request.get_full_path %}
       <li class="nav-item">
+        <a class="nav-link " href="{% url 'user_home_page' request.user%}">HOME</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link " href="{% url 'logout' %}">LOGOUT</a>
       </li>
       {% endif %}
