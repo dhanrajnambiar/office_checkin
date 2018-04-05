@@ -70,8 +70,15 @@ def user_home(request, name):
         u_name = employee_obj.user.username
         mail = employee_obj.user.email
         start_time = (datetime.datetime.now() - datetime.timedelta(days = 1)).replace(hour = 0, minute = 0, second = 0, microsecond = 0)
-        L_checkout = checkout.objects.filter(creator = employee_obj, time__gte = start_time).order_by("-time")[0]
-        L_checkin = checkin.objects.filter(creator = employee_obj, time__gte = start_time).order_by("time")[0]
+        stop_time = datetime.datetime.now().replace(hour = 0, minute = 0, second = 0, microsecond = 0)
+        try:
+            L_checkout = checkout.objects.filter(creator = employee_obj, time__gte = start_time, time__lte = stop_time).order_by("-time")[0]
+        except:
+            L_checkout = ''
+        try:
+            L_checkin = checkin.objects.filter(creator = employee_obj, time__gte = start_time, time__lte = stop_time).order_by("time")[0]
+        except:
+            L_checkin = ''
 
         if request.method == 'POST':
             if request.POST['Check_Select'] == 'in':
