@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import Employee, checkin, checkout
 from .forms import signupForm, loginForm, checkinoutForm
@@ -40,6 +40,7 @@ def user_logout(request):
     logout(request)
     return redirect('user_login')
 
+@csrf_exempt
 def signup(request):
     reg_form = signupForm(request.POST or None)
     text = "Register Here"
@@ -53,7 +54,7 @@ def signup(request):
             user_to_login = authenticate(username = usrnm, password = pwd1)
             if user_to_login is not None:
                 login(request, user_to_login)
-                return redirect('user_home_page', username = usrnm)
+                return redirect('user_home_page', name = usrnm)
 
     context = {
         'form':reg_form,
