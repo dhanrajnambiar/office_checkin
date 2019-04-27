@@ -40,7 +40,6 @@ def user_logout(request):
     logout(request)
     return redirect('user_login')
 
-@csrf_exempt
 def signup(request):
     reg_form = signupForm(request.POST or None)
     text = "Register Here"
