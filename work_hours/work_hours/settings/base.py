@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     #my custom middleware
-    # 'swipe.middleware.ExceptionReasonFinder'
+    'swipe.middleware.ExceptionLogger'
 ]
 
 ROOT_URLCONF = 'work_hours.urls'
